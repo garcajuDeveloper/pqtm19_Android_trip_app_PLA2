@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FreeTrip</string>
+    <string name="trip_list_recyclerview_item_hint">Trip Name</string>
+    <string name="no_trip_avalaible">No Trip Avalaible</string>
+    <string name="name_detail_hint">name_detail_hint</string>
+    <string name="id_detail_hint">id_detail_hint</string>
+    <string name="country_detail_hint">country_detail_hint</string>
+</resources>
