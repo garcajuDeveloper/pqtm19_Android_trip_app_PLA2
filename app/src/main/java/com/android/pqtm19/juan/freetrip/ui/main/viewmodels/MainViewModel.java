@@ -10,6 +10,7 @@ import com.android.pqtm19.juan.freetrip.repository.TripRepository;
 import com.android.pqtm19.juan.freetrip.data.entities.Trip;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -24,4 +25,6 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Trip>> getAllTrips(){ return mTripList; }
+
+    public void deleteTrip(UUID uuid){ mTripRepository.deleteTrip(uuid); }
 }

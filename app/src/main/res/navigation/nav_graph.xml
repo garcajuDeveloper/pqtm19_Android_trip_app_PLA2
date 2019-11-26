@@ -18,5 +18,11 @@
         android:id="@+id/detailFragment"
         android:name="com.android.pqtm19.juan.freetrip.ui.main.fragments.DetailFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" />
+        tools:layout="@layout/detail_fragment" >
+        <action
+            android:id="@+id/action_detailFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@+id/mainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

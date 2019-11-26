@@ -26,16 +26,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+
         setupNavigation();
     }
 
     private void setupNavigation() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigationView);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -46,22 +48,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.nav_host_fragment), drawerLayout);
+        return true;
     }
 
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+           drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
         menuItem.setChecked(true);
         drawerLayout.closeDrawers();
 
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navController.navigate(R.id.mainFragment);
                 break;
         }
-
         return true;
     }
 }

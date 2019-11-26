@@ -3,8 +3,8 @@ package com.android.pqtm19.juan.freetrip.data;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.android.pqtm19.juan.freetrip.data.entities.Trip;
 
@@ -17,12 +17,15 @@ public interface TripDAO {
     @Query("Select * from trip_table")
     LiveData<List<Trip>> getTrips();
 
-    @Query("Select * from trip_table where id=:id ")
-    Trip getTripById(UUID id);
+    @Insert
+    void insertTrip(Trip trip);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Trip trip);
+    @Update
+    void updateTrip(Trip trip);
 
-    @Query("DELETE FROM trip_table")
+    @Query("Delete from trip_table where id=:uuid")
+    void deleteTrip(UUID uuid);
+
+    @Query("Delete from trip_table")
     void deleteAll();
 }

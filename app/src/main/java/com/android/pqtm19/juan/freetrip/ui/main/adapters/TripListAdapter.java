@@ -15,7 +15,7 @@ import com.android.pqtm19.juan.freetrip.data.entities.Trip;
 import java.util.List;
 import java.util.UUID;
 
-public class TripListAdapter extends RecyclerView.Adapter<TripListAdapter.TripViewHolder> {
+public class TripListAdapter extends RecyclerView.Adapter<TripListAdapter.TripViewHolder>{
 
     private final LayoutInflater layoutInflater;
     private List<Trip> mTripList;
@@ -40,8 +40,12 @@ public class TripListAdapter extends RecyclerView.Adapter<TripListAdapter.TripVi
     }
 
     public void setmTripList(List<Trip> trips) {
-        mTripList = trips;
+        this.mTripList = trips;
         notifyDataSetChanged();
+    }
+
+    public UUID getUUIDTripAt(int i){
+        return mTripList.get(i).getUUID();
     }
 
     @Override

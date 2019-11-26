@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/textView_trip_detail_name"
             style="@style/detailTextName"
             android:text=""
@@ -21,16 +21,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView_trip_detail_country" />
 
         <TextView
-            android:id="@+id/textView_trip_detail_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/textView_trip_detail_name"
-            app:layout_constraintStart_toStartOf="@+id/textView_trip_detail_name"
-            app:layout_constraintTop_toBottomOf="@+id/textView_trip_detail_name" />
-
-        <TextView
             android:id="@+id/textView_trip_detail_country"
             style="@style/detailTextCountry"
             android:layout_marginTop="88dp"
@@ -38,9 +28,77 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        <ImageView
+            android:id="@+id/image_view_photo_trip"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/drawer_header_image"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="228dp" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_title"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edit_text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_country"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_title"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout_title"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edit_text_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Country" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/edit_text_trip_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout_country"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_country" />
+
+        <ImageButton
+            android:id="@+id/button_date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_text_trip_date"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_country"
+            app:layout_constraintStart_toEndOf="@+id/edit_text_trip_date"
+            app:layout_constraintTop_toTopOf="@+id/edit_text_trip_date" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
