@@ -1,6 +1,5 @@
 package com.android.pqtm19.juan.freetrip.ui.main.fragments;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -16,22 +15,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.pqtm19.juan.freetrip.R;
 import com.android.pqtm19.juan.freetrip.data.entities.Trip;
+import com.android.pqtm19.juan.freetrip.ui.main.utils.DatePickerFragment;
 import com.android.pqtm19.juan.freetrip.ui.main.viewmodels.DetailViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment /*implements DatePickerFragment.Callbacks*/ {
 
     private final String CURRENT_UUID_ARG = "current id";
+    private final String ARG_DIALOG_FRAGMENT = "date_picker_fragment";
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     private DetailViewModel mViewModel;
     private List<Trip> mTripList = new ArrayList<>();
-    private TextView nameTrip, countryTrip;
+    private TextView nameTrip, countryTrip, dateTrip;
+    private ImageButton datePickerButton;
 
     public static DetailFragment newInstance() { return new DetailFragment(); }
 
@@ -50,6 +57,9 @@ public class DetailFragment extends Fragment {
 
         nameTrip = view.findViewById(R.id.text_input_edit_text_title);
         countryTrip = view.findViewById(R.id.text_input_edit_text_country);
+        dateTrip = view.findViewById(R.id.edit_text_trip_date);
+
+        datePickerButton = view.findViewById(R.id.button_date_picker);
 
         return view;
     }
@@ -95,18 +105,18 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setNewDate();
+
         if(getArguments() != null){
             final UUID currentUUID = (UUID) getArguments().getSerializable(CURRENT_UUID_ARG);
 
-            mViewModel.getAllTrips().observe(this, new Observer<List<Trip>>() {
-                @Override
-                public void onChanged(List<Trip> trips) {
-                    mTripList = trips;
+            mViewModel.getAllTrips().observe(this, trips -> {
+                mTripList = trips;
 
-                    for(Trip trip : mTripList ){
-                        if(currentUUID.toString().equals(trip.getUUID().toString())){
-                           onShowTripInfo(trip);
-                        }
+                for(Trip trip : mTripList ){
+                    if(currentUUID.toString().equals(trip.getUUID().toString())){
+                       onShowTripInfo(trip);
                     }
                 }
             });
@@ -116,12 +126,30 @@ public class DetailFragment extends Fragment {
     private void onShowTripInfo(Trip trip){
         nameTrip.setText(trip.getName());
         countryTrip.setText(trip.getCountry());
+        dateTrip.setText(formatter.format(trip.getDate()));
     }
 
     private Trip updatedTrip(Trip trip){
         trip.setName(nameTrip.getText().toString());
         trip.setCountry(countryTrip.getText().toString());
 
+        try {
+            trip.setDate(formatter.parse(dateTrip.getText().toString()));
+        }catch (ParseException excepcion){
+            Toast.makeText(getContext(), "Can't create a date!", Toast.LENGTH_LONG).show();
+        }
+
         return trip;
+    }
+
+    private void setNewDate(){ datePickerButton.setOnClickListener(view -> showDatePickerDialog()); }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance((datePicker, year, month, day) -> {
+            String dateText = day +"/" + (month + 1) + "/" + year;
+            dateTrip.setText(dateText);
+        });
+
+        newFragment.show(getActivity().getSupportFragmentManager(), ARG_DIALOG_FRAGMENT);
     }
 }

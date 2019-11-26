@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity(tableName = "trip_table")
@@ -22,10 +23,15 @@ public class Trip {
     @ColumnInfo(name = "country")
     private String mCountry;
 
+    @NonNull
+    @ColumnInfo(name = "date")
+    private Date mDate;
+
     public Trip(String name, String country) {
         this.mUUID = UUID.randomUUID();
         this.mName = name;
         this.mCountry = country;
+        this.mDate = new Date();
     }
 
     @NonNull
@@ -41,4 +47,9 @@ public class Trip {
     public String getCountry() { return mCountry; }
 
     public void setCountry(String mCountry) { this.mCountry = mCountry; }
+
+    @NonNull
+    public Date getDate() { return mDate; }
+
+    public void setDate(@NonNull Date date) { this.mDate = date; }
 }

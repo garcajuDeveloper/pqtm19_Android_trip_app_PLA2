@@ -7,10 +7,11 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.android.pqtm19.juan.freetrip.data.entities.Trip;
+import com.android.pqtm19.juan.freetrip.data.utils.DateConverter;
 import com.android.pqtm19.juan.freetrip.data.utils.UUIDTypeConverter;
 
 @Database(entities = {Trip.class}, version = 1, exportSchema = false)
-@TypeConverters(UUIDTypeConverter.class)
+@TypeConverters({UUIDTypeConverter.class, DateConverter.class})
 public abstract class TripDataBase extends RoomDatabase {
 
     public abstract TripDAO tripDAO();

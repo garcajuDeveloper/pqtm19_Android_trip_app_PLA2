@@ -86,20 +86,12 @@ public class MainFragment extends Fragment {
         mRecyclerView.setAdapter(mTripAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mViewModel.getAllTrips().observe(this, new Observer<List<Trip>>() {
-            @Override
-            public void onChanged(List<Trip> trips) {
-                mTripAdapter.setmTripList(trips);
-            }
-        });
+        mViewModel.getAllTrips().observe(this, trips -> mTripAdapter.setmTripList(trips));
 
-        mTripAdapter.setOnItemClickListener(new TripListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(UUID uuid) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(CURRENT_UUID_ARG, uuid);
-                Navigation.findNavController(v).navigate(R.id.detailFragment, bundle);
-            }
+        mTripAdapter.setOnItemClickListener(uuid -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(CURRENT_UUID_ARG, uuid);
+            Navigation.findNavController(v).navigate(R.id.detailFragment, bundle);
         });
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(
